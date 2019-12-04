@@ -1,18 +1,5 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
-
-export default class App extends Component {
-  render() {
-    return (
-      <>
-        <View style={styles.container}>
-          <Text style={styles.welcome}>Everton</Text>
-          <Text style={styles.welcome}>De Grande | Cindy</Text>
-        </View>
-      </>
-    );
-  }
-}
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,3 +17,13 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
 });
+export default function App() {
+  return (
+    <>
+      <View style={styles.container}>
+        <Text style={styles.welcome}>Everton</Text>
+        <Text style={styles.welcome}>De Grande | Cindy</Text>
+      </View>
+    </>
+  );
+}

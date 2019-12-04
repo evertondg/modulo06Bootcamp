@@ -41,3 +41,108 @@ Entao escolha as opções:
 - Airbnb: https://github.com/airbnb/javascript
 - JavaScript
   Próximas opções aceitamos com o Y
+
+Após terminar delete o arquivo _package.lock.json_ e rode o comando yarn para as dependencias serem instaladas via yarn e nao npm (que é o padrao)
+
+Agora abra o arquivo .eslintrc.js
+
+Antes de começar configurar vamos instalar alguns plugins como dependencia de desenvolvimento.
+
+```
+yarn add prettier eslint-config-prettier eslint-plugin-prettier babel-eslint -D
+```
+
+deixe seu arquivo **.eslintrc.js** da seguinte forma:
+
+```js
+module.exports = {
+  env: {
+    es6: true,
+  },
+  extends: ['plugin:react/recommended', 'airbnb', 'prettier', 'prettier/react'],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
+  },
+  parser: 'babel-eslint',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2018,
+    sourceType: 'module',
+  },
+  plugins: ['react', 'prettier'],
+  rules: {
+    'prettier/prettier': 'error',
+    'react/jsx-filename-extension': [
+      'warn',
+      {
+        extensions: ['.jsx', '.js'],
+      },
+    ],
+    'import/prefer-default-export': 'off',
+  },
+};
+```
+
+Como próximo passo vamos criar um arquivo **.prettierrc** e vamos deixar o conteúdo da seguinte forma
+
+```js
+{
+  "singleQuote": true,
+  "trailingComma": "es5"
+}
+```
+
+dessa forma o prettier irá sempre colocar virgula no final dos objetos que criarmos e sempre colocar aspas simples no lugar de aspas duplas.
+
+Podemos alterar nosso arquivo **App.js** exportando como uma função pois nosso eslint irá acusar erro ao utilizar o modo de classe pois não existe estado da aplicação. Fica assim:
+
+```js
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgb(113, 89, 193);',
+    margin: 0,
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 3,
+    color: '#FFF',
+  },
+});
+export default function App() {
+  return (
+    <>
+      <View style={styles.container}>
+        <Text style={styles.welcome}>Everton</Text>
+        <Text style={styles.welcome}>De Grande | Cindy</Text>
+      </View>
+    </>
+  );
+}
+```
+
+# Dica
+
+Muitos problemas que ocorrem no device quando estamos desenvolvendo é resolvido com :
+
+```js
+react-native start --reset-cache
+```
+
+ou
+
+```js
+react-native run-android
+```
+
+Vale lembrar que durante os estudos tive problema e resolvi rodando primeiro o start para executar o metroBlunder depois rodando o run-android. Fazendo isso rodou certinho ;D
