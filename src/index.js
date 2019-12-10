@@ -4,7 +4,6 @@ import { StatusBar } from 'react-native';
 import './config/ReactotronConfig';
 import Routes from './routes';
 
-console.tron.log('teste');
 export default function App() {
   return (
     <>
