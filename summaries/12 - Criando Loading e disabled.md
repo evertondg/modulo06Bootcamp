@@ -1,6 +1,21 @@
+# Criando loading e deixando botão disabled
+
+Importe do react native o ActivityIndicator :
+
+```js
+import { Keyboard, ActivityIndicator } from 'react-native';
+```
+
+Agora temos de criar uma variavel _loading_ no estado da aplicação.
+Por default o valor dela será **false**, antes de chamar a api deixamos **true** e
+após setar o estado novamente com o retorno da api
+No botão fazemos um if ternário e caso o loading seja true mostramos o componente _ActivityIndicator_ senão mostramos nosso ícone!
+
+O código do Main/index.js fica assim:
+
+```js
 import React, { Component } from 'react';
 import { Keyboard, ActivityIndicator } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../services/api';
 
@@ -24,21 +39,6 @@ export default class Main extends Component {
     users: [],
     loading: false,
   };
-
-  async componentDidMount() {
-    const users = await AsyncStorage.getItem('users');
-
-    if (users) {
-      this.setState({ users: JSON.parse(users) });
-    }
-  }
-
-  async componentDidUpdate(_, prevState) {
-    const { users } = this.state;
-    if (prevState.users !== users) {
-      await AsyncStorage.setItem('users', JSON.stringify(users));
-    }
-  }
 
   handleAddUser = async () => {
     const { users, newUser } = this.state;
@@ -109,3 +109,22 @@ export default class Main extends Component {
 Main.navigationOptions = {
   title: 'Home',
 };
+```
+
+Como no ReactNative não conseguimos fazer o encadeamento de estilos,
+vamos trabalhar a propriedade de opacidade no estilo do botão verificando a propriedade loading.
+o estilo do botão fica assim :
+
+```js
+export const SubmitButton = styled(RectButton)`
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  margin-left: 10px;
+  padding: 0 12px;
+  background-color: #715991;
+  opacity: ${props => (props.loading ? 0.7 : 1)};
+`;
+```
+
+Só testar! #boraCodar!!!
